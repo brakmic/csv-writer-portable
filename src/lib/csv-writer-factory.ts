@@ -1,6 +1,7 @@
 import {CsvWriter} from './csv-writer'
 import {CsvStringifierFactory} from './csv-stringifier-factory'
 import {ObjectStringifierHeader} from './record'
+import { ObjectMap } from './lang/object'
 
 export interface ArrayCsvWriterParams {
     path: string
@@ -26,7 +27,7 @@ export interface ObjectCsvWriterParams {
 export class CsvWriterFactory {
     constructor(private readonly csvStringifierFactory: CsvStringifierFactory) {}
 
-    createArrayCsvWriter(params: ArrayCsvWriterParams) {
+    createArrayCsvWriter(params: ArrayCsvWriterParams): CsvWriter<any[]> {
         const csvStringifier = this.csvStringifierFactory.createArrayCsvStringifier({
             header: params.header,
             fieldDelimiter: params.fieldDelimiter,
@@ -36,7 +37,7 @@ export class CsvWriterFactory {
         return new CsvWriter(csvStringifier, params.path, params.encoding, params.append)
     }
 
-    createObjectCsvWriter(params: ObjectCsvWriterParams) {
+    createObjectCsvWriter(params: ObjectCsvWriterParams): CsvWriter<ObjectMap<any>> {
         const csvStringifier = this.csvStringifierFactory.createObjectCsvStringifier({
             header: params.header,
             fieldDelimiter: params.fieldDelimiter,
