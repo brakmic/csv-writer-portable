@@ -1,0 +1,8 @@
+/.idea
+/.nyc_output
+/.vscode
+/coverage
+/dist
+/node_modules
+/test-tmp
+__*
