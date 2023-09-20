@@ -1,0 +1,53 @@
+{
+  "name": "csv-writer-portable",
+  "version": "1.6.1",
+  "description": "Convert objects/arrays into a CSV string or write them into a CSV file (portable version)",
+  "main": "dist/index.js",
+  "types": "src/index.ts",
+  "scripts": {
+    "compile": "tsc -p ./",
+    "test": "npm run test:unit && npm run test:it",
+    "pretest:unit": "rm -rf test-tmp && mkdir test-tmp",
+    "test:unit": "mocha --require ts-node/register --recursive 'src/test/**/*.ts'",
+    "test:it": "test-integration/test.sh",
+    "coverage": "nyc npm run test:unit",
+    "lint": "eslint */**/*.ts --quiet --fix",
+    "prepare": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brakmic/csv-writer-portable.git"
+  },
+  "keywords": [
+    "csv",
+    "writer",
+    "stringify"
+  ],
+  "authors": [
+    "Ryuichi Inagaki",
+    "Harris Brakmic"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/brakmic/csv-writer-portable/issues"
+  },
+  "homepage": "https://github.com/brakmic/csv-writer-portable#readme",
+  "files": [
+    "dist",
+    "!dist/test",
+    "src",
+    "!src/test"
+  ],
+  "devDependencies": {
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^14.14.7",
+    "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "codeclimate-test-reporter": "^0.5.1",
+    "coveralls": "^3.1.0",
+    "eslint": "^8.49.0",
+    "mocha": "^10.0.0",
+    "nyc": "^15.1.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.5"
+  }
+}
