@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Replaced TSLint with ESLint
 - Replaced redundant tslint.json with .eslintrs.js
 - Temporarily disabled ESLint checks for "any" in `record.ts`, `helper.ts`, and `write-object-records.ts`
+- Fixed compilation issues regarding return types in csv-writer-factory.ts
 
 ## [1.6.0] - 2020-01-18
 ### Added
