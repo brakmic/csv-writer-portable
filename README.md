@@ -16,7 +16,7 @@ This library enables the conversion of JavaScript objects and arrays to CSV stri
 
 ## Prerequisites
 
-- Node.js (Version 8 or higher)
+- Node.js (Version 16 or higher)
 
 ## Quick Start
 
@@ -25,7 +25,7 @@ This library enables the conversion of JavaScript objects and arrays to CSV stri
 The following code snippet demonstrates how to write records, defined as an array of objects, to a file.
 
 ```ts
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const createCsvWriter = require('csv-writer-portable').createObjectCsvWriter;
 // Configuration
 // ... code here
 csvWriter.writeRecords(records).then(() => {
@@ -68,49 +68,56 @@ const csvWriter = createCsvWriter({
 
 ## API Documentation
 
-| Method | Description | Return Type | Link |
-|--------|-------------|-------------|------|
-| `createObjectCsvWriter(params)` | Creates a new CsvWriter instance. | [CsvWriter](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L6) instance | [Source](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer-factory.ts#L40) |
+The following tables describe the methods exposed by the CSV Writer Portable library.
 
-### Parameters for `createObjectCsvWriter`
+### createObjectCsvWriter(params)
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `params`  | Object | N/A | Configuration Object |
-| `params.path` | String | N/A | File path |
-| `params.header` | Array<{id, title}\|string> | N/A | Header configuration |
-| `params.fieldDelimiter` | String | `,` | Field delimiter |
-| `params.recordDelimiter` | String | `\\n` | Record delimiter |
-| `params.encoding` | String | `utf8` | Encoding type |
-| `params.append` | Boolean | `false` | Append mode |
+| Description | Link |
+| --- | --- |
+| Creates a CsvWriter instance | [Source Code](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer-factory.ts#L40) |
 
----
+| Parameter | Type | Description | Default |
+| --- | --- | --- | --- |
+| params | Object | Configuration options | - |
+| └─ path | String | File path | - |
+| └─ header | Array<{id, title}\|string> | Header specification | - |
+| └─ fieldDelimiter | String (Optional) | Field delimiter | `,` |
+| └─ recordDelimiter | String (Optional) | Record delimiter | `\n` |
+| └─ encoding | String (Optional) | File encoding | `utf8` |
+| └─ append | Boolean (Optional) | Append mode | `false` |
 
-| Method | Description | Return Type | Link |
-|--------|-------------|-------------|------|
-| `CsvWriter.writeRecords(records)` | Writes records to the CSV file. | Promise<void> | [Source](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L16) |
-
-### Parameters for `CsvWriter.writeRecords`
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `records` | Iterable collection of objects or arrays | N/A | Data records to write |
+**Returns**: [CsvWriter](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L6) instance
 
 ---
 
-| Method | Description | Return Type | Link |
-|--------|-------------|-------------|------|
-| `createObjectCsvStringifier(params)` | Creates a new ObjectCsvStringifier instance. | [ObjectCsvStringifier](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-stringifiers/object.ts#L6) instance | [Source](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-stringifier-factory.ts#L28) |
+### CsvWriter.writeRecords(records)
 
-### Parameters for `createObjectCsvStringifier`
+| Description | Link |
+| --- | --- |
+| Writes records to CSV | [Source Code](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L16) |
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `params`  | Object | N/A | Configuration Object |
-| `params.header` | Array<{id, title}\|string> | N/A | Header configuration |
-| `params.fieldDelimiter` | String | `,` | Field delimiter |
-| `params.recordDelimiter` | String | `\\n` | Record delimiter |
+| Parameter | Type | Description |
+| --- | --- | --- |
+| records | Iterable | Collection of objects or arrays |
 
+**Returns**: Promise<void>
+
+---
+
+### createObjectCsvStringifier(params)
+
+| Description | Link |
+| --- | --- |
+| Creates an ObjectCsvStringifier instance | [Source Code](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-stringifier-factory.ts#L28) |
+
+| Parameter | Type | Description | Default |
+| --- | --- | --- | --- |
+| params | Object | Configuration options | - |
+| └─ header | Array<{id, title}\|string> | Header specification | - |
+| └─ fieldDelimiter | String (Optional) | Field delimiter | `,` |
+| └─ recordDelimiter | String (Optional) | Record delimiter | `\n` |
+
+**Returns**: [ObjectCsvStringifier](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-stringifiers/object.ts#L6) instance
 ## Contribute
 
 If you'd like to contribute by either proposing new features or reporting bugs, please visit: [GitHub Issues](https://github.com/brakmic/csv-writer-portable/issues)
@@ -125,7 +132,7 @@ If you'd like to contribute by either proposing new features or reporting bugs, 
 
 ### Requirements
 
-- Node.js (Version 8 or higher)
+- Node.js (Version 16 or higher)
 - Docker
 
 ## License
