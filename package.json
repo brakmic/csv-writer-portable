@@ -27,7 +27,7 @@
     "Ryuichi Inagaki",
     "Harris Brakmic"
   ],
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/brakmic/csv-writer-portable/issues"
   },
