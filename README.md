@@ -18,6 +18,35 @@ This library enables the conversion of JavaScript objects and arrays to CSV stri
 
 - Node.js (Version 16 or higher)
 
+### Webpack & Bundling Scripts
+
+New to this enhanced version, we have added Webpack configurations to bundle the TypeScript source code into a JavaScript file that can be served through a web server. The various NPM scripts available are:
+
+- `bundle:dev`: Bundles your code in development mode. Source maps will be generated.
+- `bundle:prod`: Bundles your code in production mode. The output will be optimized and minified.
+- `compile`: Compiles TypeScript code based on the provided tsconfig.json.
+- `compile-and-bundle`: A one-step command to compile TypeScript and then bundle it using Webpack.
+- `serve`: Runs a simple HTTP server to serve the `./public` directory at `http://localhost:8080`.
+
+#### How to Test
+
+1. To bundle and serve the application, run the following commands in sequence:
+
+   ```bash
+   npm run bundle:dev
+   npm run serve
+   ```
+    Then, navigate to http://localhost:8080.
+
+    ![csv-writer-in-browser](./gifs/csv-writer-in-browser.gif)
+
+2. To compile TypeScript and bundle in one go:
+
+    ```bash
+    npm run compile-and-bundle
+    npm run serve
+    ```
+
 ### Quick Start
 
 #### Writing Records as Array of Objects to a File
