@@ -13,6 +13,6 @@ cd $test_dir
 
 npm pack ../..
 npm install
-npm install ./csv-writer-*.tgz
+npm install ./csv-writer-portable-*.tgz
 
-docker run --rm -v `pwd`:/app -w /app node:4 npm test
+docker run --rm -v `pwd`:/app -w /app node:16 npm test
