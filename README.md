@@ -1,36 +1,48 @@
-# CSV Writer Portable
+## CSV Writer Portable
 
-## Introduction
+### Introduction
 
 This repository serves as an enhanced version of an existing project, [ryu1kn/csv-writer](https://github.com/ryu1kn/csv-writer).
 
-## Rationale
+### Rationale
 
 The original project appeared to be unmaintained, leaving issues such as TypeScript compilation errors unresolved.
 
 ---
 
-## Features
+### Features
 
 This library enables the conversion of JavaScript objects and arrays to CSV strings or writes them directly to a file. The generated CSV complies with [RFC 4180](https://tools.ietf.org/html/rfc4180).
 
-## Prerequisites
+### Prerequisites
 
 - Node.js (Version 16 or higher)
 
-## Quick Start
+### Quick Start
 
-### Writing Records as Array of Objects to a File
+#### Writing Records as Array of Objects to a File
 
 The following code snippet demonstrates how to write records, defined as an array of objects, to a file.
 
 ```ts
-const createCsvWriter = require('csv-writer-portable').createObjectCsvWriter;
-// Configuration
-// ... code here
-csvWriter.writeRecords(records).then(() => {
-    console.log('...Done');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const csvWriter = createCsvWriter({
+    path: 'path/to/file.csv',
+    header: [
+        {id: 'name', title: 'NAME'},
+        {id: 'lang', title: 'LANGUAGE'}
+    ]
 });
+
+const records = [
+    {name: 'Bob',  lang: 'French, English'},
+    {name: 'Mary', lang: 'English'}
+];
+
+csvWriter.writeRecords(records) // returns a promise
+    .then(() => {
+        console.log('...Done');
+    });
 ```
 
 The generated CSV file will contain the following:
@@ -41,21 +53,21 @@ Bob,"French, English"
 Mary,English
 ```
 
-### Multiple Writes to the Same File
+#### Multiple Writes to the Same File
 
 To append more records, simply call `writeRecords` again after the promise from the previous call is fulfilled.
 
 ```ts
-// Usage in an `async` function
+// Usage in an async function
 await csvWriter.writeRecords(records1);
 await csvWriter.writeRecords(records2);
 ```
 
-### Writing Large Data Sets
+#### Writing Large Data Sets
 
 For large data sets, you may want to create a Node.js transform stream and use `CsvStringifier`. This enables you to pipe the stream to a file write stream.
 
-### Skipping Header Line
+#### Skipping Header Line
 
 To omit the header line, provide only the field IDs without titles.
 
@@ -66,7 +78,60 @@ const csvWriter = createCsvWriter({
 });
 ```
 
-## API Documentation
+If each record is defined as an array, use `createArrayCsvWriter` to get an `csvWriter` instance.
+
+```ts
+const createCsvWriter = require('csv-writer').createArrayCsvWriter;
+const csvWriter = createCsvWriter({
+    header: ['NAME', 'LANGUAGE'],
+    path: 'path/to/file.csv'
+});
+
+const records = [
+    ['Bob',  'French, English'],
+    ['Mary', 'English']
+];
+
+csvWriter.writeRecords(records) // returns a promise
+    .then(() => {
+        console.log('...Done');
+    });
+```
+
+This will produce a file path/to/file.csv with following contents:
+
+```csv
+NAME,LANGUAGE
+Bob,"French, English"
+Mary,English
+```
+
+If you just want to get a CSV string but don't want to write into a file, you can use createObjectCsvStringifier (or createArrayCsvStringifier) to get an csvStringifier.
+
+```ts
+const createCsvStringifier = require('csv-writer').createObjectCsvStringifier;
+const csvStringifier = createCsvStringifier({
+    header: [
+        {id: 'name', title: 'NAME'},
+        {id: 'lang', title: 'LANGUAGE'}
+    ]
+});
+
+const records = [
+    {name: 'Bob',  lang: 'French, English'},
+    {name: 'Mary', lang: 'English'}
+];
+```
+
+```ts
+console.log(csvStringifier.getHeaderString());
+// => 'NAME,LANGUAGE\n'
+
+console.log(csvStringifier.stringifyRecords(records));
+// => 'Bob,"French, English"\nMary,English\n'
+```
+
+### API Documentation
 
 The following tables describe the methods exposed by the CSV Writer Portable library.
 
@@ -86,7 +151,7 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | └─ encoding | String (Optional) | File encoding | `utf8` |
 | └─ append | Boolean (Optional) | Append mode | `false` |
 
-**Returns**: [CsvWriter](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L6) instance
+**Returns**: [CsvWriter](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L10) instance
 
 ---
 
@@ -94,7 +159,7 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 
 | Description | Link |
 | --- | --- |
-| Writes records to CSV | [Source Code](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L16) |
+| Writes records to CSV | [Source Code](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L21) |
 
 | Parameter | Type | Description |
 | --- | --- | --- |
