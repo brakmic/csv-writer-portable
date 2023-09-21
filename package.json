@@ -1,6 +1,6 @@
 {
   "name": "csv-writer-portable",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Convert objects/arrays into a CSV string or write them into a CSV file (portable version)",
   "main": "dist/index.js",
   "types": "src/index.ts",
@@ -24,8 +24,16 @@
     "stringify"
   ],
   "authors": [
-    "Ryuichi Inagaki",
-    "Harris Brakmic"
+    {
+      "name": "Ryuichi Inagaki",
+      "email": "ryuichi.inagaki.24@googlemail.com",
+      "url": "https://github.com/ryu1kn"
+    },
+    {
+      "name": "Harris Brakmic",
+      "email": "brakmic@gmail.com",
+      "url": "https://github.com/brakmic"
+    }
   ],
   "license": "MIT",
   "bugs": {
