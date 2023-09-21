@@ -1,7 +1,7 @@
-import {assertFile, testFilePath} from './helper'
-import {CsvWriter} from '../lib/csv-writer'
-import {writeFileSync} from 'fs'
-import {createArrayCsvWriter} from '../index'
+import { writeFileSync } from "fs"
+import { createArrayCsvWriter } from "../.."
+import { testFilePath, assertFile } from "./helper"
+import { CsvWriter } from "../lib/csv-writer"
 
 describe('Write array records into CSV', () => {
 

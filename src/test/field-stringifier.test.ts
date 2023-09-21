@@ -1,5 +1,5 @@
+import { createFieldStringifier } from '../lib/field-stringifier'
 import {resolveDelimiterChar} from './helper/delimiter'
-import {createFieldStringifier} from '../lib/field-stringifier'
 import {strictEqual} from 'assert'
 
 describe('DefaultFieldStringifier', () => {

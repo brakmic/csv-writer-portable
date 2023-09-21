@@ -1,6 +1,6 @@
-import {promisify} from '../../lib/lang/promise'
 import {strictEqual} from 'assert'
 import {assertRejected} from '../helper'
+import { promisify } from '../../lib/lang/promise'
 
 describe('Promise', () => {
     const greetAsync = (name: string, callback: (err: Error | null, result?: string) => void) => {

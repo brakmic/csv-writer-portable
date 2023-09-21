@@ -1,8 +1,8 @@
-import {assertFile, testFilePath} from './helper'
-import {CsvWriter} from '../lib/csv-writer'
-import {writeFileSync} from 'fs'
-import {createObjectCsvWriter} from '../index'
-import {ObjectMap} from '../lib/lang/object'
+import { writeFileSync } from "fs"
+import { createObjectCsvWriter } from "../.."
+import { assertFile, testFilePath } from "./helper"
+import { CsvWriter } from "../lib/csv-writer"
+import { ObjectMap } from "../lib/lang/object"
 
 describe('Write object records into CSV', () => {
 
