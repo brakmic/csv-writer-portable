@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSV Writer Portable Test</title>
+  </head>
+  <body>
+    <h1>CSV Writer Portable</h1>
+    <button id="runTest">Run Test</button>
+    <pre id="output"></pre>
+    <script src="./bundle.js"></script>
+    <script>
+      document.getElementById("runTest").addEventListener("click", function () {
+        const outputElement = document.getElementById("output");
+
+        // create stringifier instance
+        const csvStringifier = CsvWriter.createObjectCsvStringifier({
+          header: [
+            { id: "name", title: "NAME" },
+            { id: "lang", title: "LANGUAGE" },
+          ],
+        });
+
+        // Get the header and records as strings
+        const headerString = csvStringifier.getHeaderString();
+        const recordsString = csvStringifier.stringifyRecords([
+          { name: "Bob", lang: "French, English" },
+          { name: "Mary", lang: "English" },
+        ]);
+
+        // Display the header and records
+        outputElement.textContent = `${headerString}\n${recordsString}`;
+      });
+    </script>
+  </body>
+</html>
