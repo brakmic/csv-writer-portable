@@ -1,358 +1,133 @@
-# CSV Writer (portable version)
+# CSV Writer Portable
 
-## This is a fork of [this project](https://github.com/ryu1kn/csv-writer).
+## Introduction
 
-### Motivation
+This repository serves as an enhanced version of an existing project, [ryu1kn/csv-writer](https://github.com/ryu1kn/csv-writer).
 
-It looked like the previous project was abandoned, so I started this new one to tackle TypeScript compilation errors, similar to the ones shown below.
+## Rationale
 
-```powershell
-node_modules\.pnpm\csv-writer@1.6.0\node_modules\csv-writer\src\index.ts:11:14 - error TS2742: The inferred type of 'createArrayCsvStringifier' cannot be named without a reference to '.pnpm/csv-writer@1.6.0/node_modules/csv-writer/src/lib/csv-stringifiers/array'. This is likely not portable. A type annotation is necessary.
+The original project appeared to be unmaintained, leaving issues such as TypeScript compilation errors unresolved.
 
- 
+---
 
-   9 | const csvWriterFactory = new CsvWriterFactory(csvStringifierFactory);
+## Features
 
-  10 |
+This library enables the conversion of JavaScript objects and arrays to CSV strings or writes them directly to a file. The generated CSV complies with [RFC 4180](https://tools.ietf.org/html/rfc4180).
 
-> 11 | export const createArrayCsvStringifier = (params: ArrayCsvStringifierParams) =>
+## Prerequisites
 
-     |              ^
+- Node.js (Version 8 or higher)
 
-  12 |         csvStringifierFactory.createArrayCsvStringifier(params);
+## Quick Start
 
-  13 |
+### Writing Records as Array of Objects to a File
 
-  14 | export const createObjectCsvStringifier = (params: ObjectCsvStringifierParams) =>
+The following code snippet demonstrates how to write records, defined as an array of objects, to a file.
 
- 
-
-node_modules\.pnpm\csv-writer@1.6.0\node_modules\csv-writer\src\index.ts:14:14 - error TS2742: The inferred type of 'createObjectCsvStringifier' cannot be named without a reference to '.pnpm/csv-writer@1.6.0/node_modules/csv-writer/src/lib/csv-stringifiers/object'. This is likely not portable. A type annotation is necessary.
-```
-----
-
-Convert objects/arrays into a CSV string or write them into a file.
-It respects [RFC 4180](https://tools.ietf.org/html/rfc4180) for the output CSV format.
-
-## Prerequisite
-
-* Node version 4 or above
-
-## Usage
-
-The example below shows how you can write records defined as the array of objects into a file.
-
-```js
+```ts
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-const csvWriter = createCsvWriter({
-    path: 'path/to/file.csv',
-    header: [
-        {id: 'name', title: 'NAME'},
-        {id: 'lang', title: 'LANGUAGE'}
-    ]
+// Configuration
+// ... code here
+csvWriter.writeRecords(records).then(() => {
+    console.log('...Done');
 });
-
-const records = [
-    {name: 'Bob',  lang: 'French, English'},
-    {name: 'Mary', lang: 'English'}
-];
-
-csvWriter.writeRecords(records)       // returns a promise
-    .then(() => {
-        console.log('...Done');
-    });
-
-// This will produce a file path/to/file.csv with following contents:
-//
-//   NAME,LANGUAGE
-//   Bob,"French, English"
-//   Mary,English
 ```
 
-You can keep writing records into the same file by calling `writeRecords` multiple times
-(but need to wait for the fulfillment of the `promise` of the previous `writeRecords` call).
+The generated CSV file will contain the following:
 
-```js
-// In an `async` function
-await csvWriter.writeRecords(records1)
-await csvWriter.writeRecords(records2)
-...
+```csv
+NAME,LANGUAGE
+Bob,"French, English"
+Mary,English
 ```
 
-However, if you need to keep writing large data to a certain file, you would want to create
-node's transform stream and use `CsvStringifier`, which is explained later, inside it
-, and pipe the stream into a file write stream.
+### Multiple Writes to the Same File
 
-If you don't want to write a header line, don't give `title` to header elements and just give field IDs as a string.
+To append more records, simply call `writeRecords` again after the promise from the previous call is fulfilled.
 
-```js
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+```ts
+// Usage in an `async` function
+await csvWriter.writeRecords(records1);
+await csvWriter.writeRecords(records2);
+```
+
+### Writing Large Data Sets
+
+For large data sets, you may want to create a Node.js transform stream and use `CsvStringifier`. This enables you to pipe the stream to a file write stream.
+
+### Skipping Header Line
+
+To omit the header line, provide only the field IDs without titles.
+
+```ts
 const csvWriter = createCsvWriter({
     path: 'path/to/file.csv',
     header: ['name', 'lang']
 });
 ```
 
-If each record is defined as an array, use `createArrayCsvWriter` to get an `csvWriter`.
+## API Documentation
 
-```js
-const createCsvWriter = require('csv-writer').createArrayCsvWriter;
-const csvWriter = createCsvWriter({
-    header: ['NAME', 'LANGUAGE'],
-    path: 'path/to/file.csv'
-});
+| Method | Description | Return Type | Link |
+|--------|-------------|-------------|------|
+| `createObjectCsvWriter(params)` | Creates a new CsvWriter instance. | [CsvWriter](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L6) instance | [Source](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer-factory.ts#L40) |
 
-const records = [
-    ['Bob',  'French, English'],
-    ['Mary', 'English']
-];
+### Parameters for `createObjectCsvWriter`
 
-csvWriter.writeRecords(records)       // returns a promise
-    .then(() => {
-        console.log('...Done');
-    });
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `params`  | Object | N/A | Configuration Object |
+| `params.path` | String | N/A | File path |
+| `params.header` | Array<{id, title}\|string> | N/A | Header configuration |
+| `params.fieldDelimiter` | String | `,` | Field delimiter |
+| `params.recordDelimiter` | String | `\\n` | Record delimiter |
+| `params.encoding` | String | `utf8` | Encoding type |
+| `params.append` | Boolean | `false` | Append mode |
 
-// This will produce a file path/to/file.csv with following contents:
-//
-//   NAME,LANGUAGE
-//   Bob,"French, English"
-//   Mary,English
-```
+---
 
-If you just want to get a CSV string but don't want to write into a file,
-you can use `createObjectCsvStringifier` (or `createArrayCsvStringifier`)
-to get an `csvStringifier`.
+| Method | Description | Return Type | Link |
+|--------|-------------|-------------|------|
+| `CsvWriter.writeRecords(records)` | Writes records to the CSV file. | Promise<void> | [Source](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L16) |
 
-```js
-const createCsvStringifier = require('csv-writer').createObjectCsvStringifier;
-const csvStringifier = createCsvStringifier({
-    header: [
-        {id: 'name', title: 'NAME'},
-        {id: 'lang', title: 'LANGUAGE'}
-    ]
-});
+### Parameters for `CsvWriter.writeRecords`
 
-const records = [
-    {name: 'Bob',  lang: 'French, English'},
-    {name: 'Mary', lang: 'English'}
-];
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `records` | Iterable collection of objects or arrays | N/A | Data records to write |
 
-console.log(csvStringifier.getHeaderString());
-// => 'NAME,LANGUAGE\n'
+---
 
-console.log(csvStringifier.stringifyRecords(records));
-// => 'Bob,"French, English"\nMary,English\n'
-```
+| Method | Description | Return Type | Link |
+|--------|-------------|-------------|------|
+| `createObjectCsvStringifier(params)` | Creates a new ObjectCsvStringifier instance. | [ObjectCsvStringifier](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-stringifiers/object.ts#L6) instance | [Source](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-stringifier-factory.ts#L28) |
 
+### Parameters for `createObjectCsvStringifier`
 
-## API
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `params`  | Object | N/A | Configuration Object |
+| `params.header` | Array<{id, title}\|string> | N/A | Header configuration |
+| `params.fieldDelimiter` | String | `,` | Field delimiter |
+| `params.recordDelimiter` | String | `\\n` | Record delimiter |
 
-### createObjectCsvWriter(params)
+## Contribute
 
-##### Parameters:
+If you'd like to contribute by either proposing new features or reporting bugs, please visit: [GitHub Issues](https://github.com/brakmic/csv-writer-portable/issues)
 
-* params `<Object>`
-  * path `<string>`
+### Guidelines
 
-      Path to a write file
+- **Feature Requests**: Context is key. Please provide a detailed explanation of why you need the specific feature and how it could benefit the users.
+  
+- **Bug Reports**: Reproducible code snippets are greatly appreciated.
 
-  * header `<Array<{id, title}|string>>`
+## Development Setup
 
-      Array of objects (`id` and `title` properties) or strings (field IDs).
-      A header line will be written to the file only if given as an array of objects.
+### Requirements
 
-  * fieldDelimiter `<string>` (optional)
-
-      Default: `,`. Only either comma `,` or semicolon `;` is allowed.
-
-  * recordDelimiter `<string>` (optional)
-
-      Default: `\n`. Only either LF (`\n`) or CRLF (`\r\n`) is allowed.
-
-  * headerIdDelimiter `<string>` (optional)
-
-      Default: `undefined`. Give this value to specify a path to a value in a nested object.
-
-  * alwaysQuote `<boolean>` (optional)
-
-      Default: `false`. Set it to `true` to double-quote all fields regardless of their values.
-
-  * encoding `<string>` (optional)
-
-      Default: `utf8`.
-
-  * append `<boolean>` (optional)
-
-      Default: `false`. When `true`, it will append CSV records to the specified file.
-      If the file doesn't exist, it will create one.
-
-      **NOTE:** A header line will not be written to the file if `true` is given.
-
-##### Returns:
-
-* `<CsvWriter>`
-
-
-### createArrayCsvWriter(params)
-
-##### Parameters:
-
-* params `<Object>`
-  * path `<string>`
-
-      Path to a write file
-
-  * header `<Array<string>>` (optional)
-
-      Array of field titles
-
-  * fieldDelimiter `<string>` (optional)
-
-      Default: `,`. Only either comma `,` or semicolon `;` is allowed.
-
-  * recordDelimiter `<string>` (optional)
-
-      Default: `\n`. Only either LF (`\n`) or CRLF (`\r\n`) is allowed.
-
-  * alwaysQuote `<boolean>` (optional)
-
-      Default: `false`. Set it to `true` to double-quote all fields regardless of their values.
-
-  * encoding `<string>` (optional)
-
-      Default: `utf8`.
-
-  * append `<boolean>` (optional)
-
-      Default: `false`. When `true`, it will append CSV records to the specified file.
-      If the file doesn't exist, it will create one.
-
-      **NOTE:** A header line will not be written to the file if `true` is given.
-
-##### Returns:
-
-* `<CsvWriter>`
-
-
-### CsvWriter#writeRecords(records)
-
-##### Parameters:
-
-* records `<Iterator<Object|Array>>`
-
-    Depending on which function was used to create a `csvWriter` (i.e. `createObjectCsvWriter` or `createArrayCsvWriter`),
-    records will be either a collection of objects or arrays. As long as the collection is iterable, it doesn't need to be an array.
-
-##### Returns:
-
-* `<Promise>`
-
-
-### createObjectCsvStringifier(params)
-
-##### Parameters:
-
-* params `<Object>`
-  * header `<Array<{id, title}|string>>`
-
-      Array of objects (`id` and `title` properties) or strings (field IDs)
-
-  * fieldDelimiter `<string>` (optional)
-
-      Default: `,`. Only either comma `,` or semicolon `;` is allowed.
-
-  * recordDelimiter `<string>` (optional)
-
-      Default: `\n`. Only either LF (`\n`) or CRLF (`\r\n`) is allowed.
-
-  * headerIdDelimiter `<string>` (optional)
-
-      Default: `undefined`. Give this value to specify a path to a value in a nested object.
-
-  * alwaysQuote `<boolean>` (optional)
-
-      Default: `false`. Set it to `true` to double-quote all fields regardless of their values.
-
-##### Returns:
-
-* `<ObjectCsvStringifier>`
-
-### ObjectCsvStringifier#getHeaderString()
-
-##### Returns:
-
-* `<string>`
-
-### ObjectCsvStringifier#stringifyRecords(records)
-
-##### Parameters:
-
-* records `<Array<Object>>`
-
-##### Returns:
-
-* `<string>`
-
-### createArrayCsvStringifier(params)
-
-##### Parameters:
-
-* params `<Object>`
-  * header `<Array<string>>` (optional)
-
-      Array of field titles
-
-  * fieldDelimiter `<string>` (optional)
-
-      Default: `,`. Only either comma `,` or semicolon `;` is allowed.
-
-  * recordDelimiter `<string>` (optional)
-
-      Default: `\n`. Only either LF (`\n`) or CRLF (`\r\n`) is allowed.
-
-  * alwaysQuote `<boolean>` (optional)
-
-      Default: `false`. Set it to `true` to double-quote all fields regardless of their values.
-
-##### Returns:
-
-* `<ArrayCsvStringifier>`
-
-### ArrayCsvStringifier#getHeaderString()
-
-##### Returns:
-
-* `<string>`
-
-### ArrayCsvStringifier#stringifyRecords(records)
-
-##### Parameters:
-
-* records `<Array<Array<string>>>`
-
-##### Returns:
-
-* `<string>`
-
-
-## Request Features or Report Bugs
-
-Feature requests and bug reports are very welcome: https://github.com/ryu1kn/csv-writer/issues
-
-A couple of requests from me when you raise an issue on GitHub.
-
-* **Requesting a feature:** Please try to provide the context of why you want the feature. Such as,
-  in what situation the feature could help you and how, or how the lack of the feature is causing an inconvenience to you.
-  I can't start thinking of introducing it until I understand how it helps you 🙂
-* **Reporting a bug:** If you could provide a runnable code snippet that reproduces the bug, it would be very helpful!
-
-
-## Development
-
-### Prerequisite
-
-* Node version 8 or above
-* Docker
+- Node.js (Version 8 or higher)
+- Docker
 
 ## License
-[MIT](./LICENSE)
+
+Licensed under the [MIT License](./LICENSE).
