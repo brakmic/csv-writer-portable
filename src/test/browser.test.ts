@@ -10,7 +10,7 @@ describe('CsvWriter Browser Compatibility', () => {
     beforeEach(() => {
         fileWriterMock = new FileWriterMock();
         csvStringifierMock = CsvStringifierMock;
-        writer = new CsvWriter<string[]>(csvStringifierMock as any, '', '', false, fileWriterMock);
+        writer = new CsvWriter<string[]>(csvStringifierMock, '', '', false, fileWriterMock);
     });
 
     it('should write records without errors', async () => {
