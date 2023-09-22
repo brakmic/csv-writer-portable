@@ -1,0 +1,37 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.x'
+        
+    - name: Install Dependencies
+      run: npm install
+      
+    - name: Lint Code
+      run: npm run lint
+
+    - name: Run Unit Tests
+      run: npm test
+      
+    - name: Run Integration Tests
+      run: ./test-integration/test.sh
+      
+    - name: Build Project
+      run: npm run bundle:prod
