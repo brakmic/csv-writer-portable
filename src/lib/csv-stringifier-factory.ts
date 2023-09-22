@@ -20,12 +20,12 @@ export interface ObjectCsvStringifierParams {
 
 export class CsvStringifierFactory {
 
-    createArrayCsvStringifier(params: ArrayCsvStringifierParams) {
+    createArrayCsvStringifier(params: ArrayCsvStringifierParams): ArrayCsvStringifier {
         const fieldStringifier = createFieldStringifier(params.fieldDelimiter, params.alwaysQuote)
         return new ArrayCsvStringifier(fieldStringifier, params.recordDelimiter, params.header)
     }
 
-    createObjectCsvStringifier(params: ObjectCsvStringifierParams) {
+    createObjectCsvStringifier(params: ObjectCsvStringifierParams): ObjectCsvStringifier {
         const fieldStringifier = createFieldStringifier(params.fieldDelimiter, params.alwaysQuote)
         return new ObjectCsvStringifier(fieldStringifier, params.header, params.recordDelimiter, params.headerIdDelimiter)
     }
