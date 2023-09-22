@@ -1,33 +1,50 @@
-import {ArrayCsvStringifier} from './csv-stringifiers/array'
-import {createFieldStringifier} from './field-stringifier'
-import {ObjectCsvStringifier} from './csv-stringifiers/object'
-import {ObjectStringifierHeader} from './record'
+import { ArrayCsvStringifier } from './csv-stringifiers/array';
+import { createFieldStringifier } from './field-stringifier';
+import { ObjectCsvStringifier } from './csv-stringifiers/object';
+import { ObjectStringifierHeader } from './record';
 
 export interface ArrayCsvStringifierParams {
-    header?: string[]
-    fieldDelimiter?: string
-    recordDelimiter?: string
-    alwaysQuote?: boolean
+    header?: string[];
+    fieldDelimiter?: string;
+    recordDelimiter?: string;
+    alwaysQuote?: boolean;
 }
 
 export interface ObjectCsvStringifierParams {
-    header: ObjectStringifierHeader
-    fieldDelimiter?: string
-    recordDelimiter?: string
-    headerIdDelimiter?: string
-    alwaysQuote?: boolean
+    header: ObjectStringifierHeader;
+    fieldDelimiter?: string;
+    recordDelimiter?: string;
+    headerIdDelimiter?: string;
+    alwaysQuote?: boolean;
 }
 
 export class CsvStringifierFactory {
-
-    createArrayCsvStringifier(params: ArrayCsvStringifierParams): ArrayCsvStringifier {
-        const fieldStringifier = createFieldStringifier(params.fieldDelimiter, params.alwaysQuote);
-        return new ArrayCsvStringifier(fieldStringifier, params.recordDelimiter, params.header);
+    createArrayCsvStringifier(
+        params: ArrayCsvStringifierParams,
+    ): ArrayCsvStringifier {
+        const fieldStringifier = createFieldStringifier(
+            params.fieldDelimiter,
+            params.alwaysQuote,
+        );
+        return new ArrayCsvStringifier(
+            fieldStringifier,
+            params.recordDelimiter,
+            params.header,
+        );
     }
 
-    createObjectCsvStringifier(params: ObjectCsvStringifierParams): ObjectCsvStringifier {
-        const fieldStringifier = createFieldStringifier(params.fieldDelimiter, params.alwaysQuote);
-        return new ObjectCsvStringifier(fieldStringifier, params.header, params.recordDelimiter, params.headerIdDelimiter);
+    createObjectCsvStringifier(
+        params: ObjectCsvStringifierParams,
+    ): ObjectCsvStringifier {
+        const fieldStringifier = createFieldStringifier(
+            params.fieldDelimiter,
+            params.alwaysQuote,
+        );
+        return new ObjectCsvStringifier(
+            fieldStringifier,
+            params.header,
+            params.recordDelimiter,
+            params.headerIdDelimiter,
+        );
     }
-
 }
