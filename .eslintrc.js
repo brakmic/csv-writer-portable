@@ -4,8 +4,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',  // Make sure it's last to override previous settings.
   ],
   rules: {
     'no-throw-literal': 'error',
