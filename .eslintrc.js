@@ -18,7 +18,7 @@ module.exports = {
         "format": ["PascalCase"]
       }
     ],
-    'semi': ['error', 'never'],
+    'semi': ['error', 'always'],
     'quotes': ['error', 'single', { 'avoidEscape': true }],
     'eqeqeq': 'error'
   },
