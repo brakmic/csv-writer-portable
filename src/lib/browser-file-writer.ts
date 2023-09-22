@@ -1,4 +1,4 @@
-import { IFileWriter } from "./csv-writer";
+import { IFileWriter } from './csv-writer';
 
 export class BrowserFileWriter implements IFileWriter {
   constructor(private readonly path: string) {}
