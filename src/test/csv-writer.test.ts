@@ -1,16 +1,20 @@
 import { CsvWriter } from "../lib/csv-writer";
-import { CsvStringifierMock } from "./mocks/csv-stringifier.mock";
 import { FileWriterMock } from "./mocks/file-writer.mock";
+import { FieldStringifier } from "../lib/field-stringifier";
+import { CsvStringifier } from "../lib/csv-stringifiers/abstract";
+import { TestFieldStringifier, TestCsvStringifier } from "./impl/stringifiers";
 
 describe('CsvWriter', () => {
   let writer: CsvWriter<string[]>;
   let fileWriterMock: FileWriterMock;
-  let csvStringifierMock: typeof CsvStringifierMock;
+  let fieldStringifier: FieldStringifier;
+  let csvStringifier: CsvStringifier<string[]>;
 
   beforeEach(() => {
     fileWriterMock = new FileWriterMock();
-    csvStringifierMock = { ...CsvStringifierMock } as any;
-    writer = new CsvWriter<string[]>(csvStringifierMock as any, "some_path.csv", "utf8", false, fileWriterMock);
+    fieldStringifier = new TestFieldStringifier(',');
+    csvStringifier = new TestCsvStringifier(fieldStringifier, '\n');
+    writer = new CsvWriter<string[]>(csvStringifier, "some_path.csv", "utf8", false, fileWriterMock);
   });
 
   it('should write records without errors', async () => {
