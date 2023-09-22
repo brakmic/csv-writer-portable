@@ -1,5 +1,7 @@
 ## CSV Writer Portable
 
+![CI/CD Pipeline](https://github.com/brakmic/csv-writer-portable/actions/workflows/main.yml/badge.svg)
+
 ### Introduction
 
 This repository serves as an enhanced version of an existing project, [ryu1kn/csv-writer](https://github.com/ryu1kn/csv-writer).
