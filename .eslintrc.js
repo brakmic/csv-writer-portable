@@ -1,10 +1,10 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'prettier'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',  // Make sure it's last to override previous settings.
+    'plugin:prettier/recommended',
   ],
   rules: {
     'no-throw-literal': 'error',
@@ -20,7 +20,13 @@ module.exports = {
     ],
     'semi': ['error', 'always'],
     'quotes': ['error', 'single', { 'avoidEscape': true }],
-    'eqeqeq': 'error'
+    'eqeqeq': 'error',
+    'prettier/prettier': [
+      'error',
+      {
+        'singleQuote': true,
+      },
+    ],
   },
   parserOptions: {
     ecmaVersion: 2020,
