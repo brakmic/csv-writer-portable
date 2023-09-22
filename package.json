@@ -15,6 +15,7 @@
     "pretest": "rm -rf test-tmp && mkdir test-tmp",
     "coverage": "jest --coverage",
     "lint": "eslint */**/*.ts --quiet --fix",
+    "lint:ci": "eslint */**/*.ts --quiet",
     "prepare": "npm run compile"
   },
   "repository": {
