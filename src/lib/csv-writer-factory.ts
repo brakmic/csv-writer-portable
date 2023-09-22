@@ -33,8 +33,8 @@ export class CsvWriterFactory {
             fieldDelimiter: params.fieldDelimiter,
             recordDelimiter: params.recordDelimiter,
             alwaysQuote: params.alwaysQuote
-        })
-        return new CsvWriter(csvStringifier, params.path, params.encoding, params.append)
+        });
+        return new CsvWriter(csvStringifier, params.path, params.encoding, params.append);
     }
 
     createObjectCsvWriter(params: ObjectCsvWriterParams): CsvWriter<ObjectMap<any>> {
@@ -44,7 +44,7 @@ export class CsvWriterFactory {
             recordDelimiter: params.recordDelimiter,
             headerIdDelimiter: params.headerIdDelimiter,
             alwaysQuote: params.alwaysQuote
-        })
-        return new CsvWriter(csvStringifier, params.path, params.encoding, params.append)
+        });
+        return new CsvWriter(csvStringifier, params.path, params.encoding, params.append);
     }
 }
