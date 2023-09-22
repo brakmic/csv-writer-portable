@@ -13,6 +13,7 @@ module.exports = {
     "/node_modules/",
     "/helper.ts$",
     "/delimiter.ts$",
-    "/mocks/"
+    "/mocks/",
+    "/impl/"
   ]
 };
