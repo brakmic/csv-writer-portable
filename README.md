@@ -29,7 +29,7 @@ Here's what you can do with the available NPM scripts:
 - `bundle:dev`: It bundles the code and includes source maps.
 - `bundle:prod`: This is for production.
 - `compile`: Compiles TypeScript based on tsconfig.json.
-- `compile-and-bundle`: Compiles and bundle in one go.
+- `compile-and-bundle`: Compile and bundle sources in one go.
 - `serve`: Starts a basic HTTP server to show files from the `./public` directory at `http://localhost:8080`.
 
 
