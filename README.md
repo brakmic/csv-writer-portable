@@ -22,13 +22,16 @@ This library enables the conversion of JavaScript objects and arrays to CSV stri
 
 ### Webpack
 
-In this enhanced version, Webpack configurations are included to facilitate the bundling of TypeScript into a deployable JavaScript file for web server use. Presented below is a selection of available NPM scripts:
+Creating browser-compatible JavaScript files is now a possible, thanks to the included Webpack configurations.
 
-- `bundle:dev`: Executes bundling in development mode, generating source maps for easier debugging.
-- `bundle:prod`: Optimizes and minifies output when bundling in a production environment.
-- `compile`: Transforms TypeScript code according to parameters set in the provided tsconfig.json file.
-- `compile-and-bundle`: A comprehensive command that compiles TypeScript and subsequently bundles it via Webpack.
-- `serve`: Initiates a rudimentary HTTP server, making the `./public` directory accessible at `http://localhost:8080`.
+Here's what you can do with the available NPM scripts:
+
+- `bundle:dev`: It bundles the code and includes source maps.
+- `bundle:prod`: This is for production.
+- `compile`: Compiles TypeScript based on tsconfig.json.
+- `compile-and-bundle`: Compiles and bundle in one go.
+- `serve`: Starts a basic HTTP server to show files from the `./public` directory at `http://localhost:8080`.
+
 
 
 #### How to Test
