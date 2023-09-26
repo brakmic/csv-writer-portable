@@ -20,15 +20,16 @@ This library enables the conversion of JavaScript objects and arrays to CSV stri
 
 - Node.js (Version 16 or higher)
 
-### Webpack & Bundling Scripts
+### Webpack
 
-New to this enhanced version, we have added Webpack configurations to bundle the TypeScript source code into a JavaScript file that can be served through a web server. The various NPM scripts available are:
+In this enhanced version, Webpack configurations are included to facilitate the bundling of TypeScript into a deployable JavaScript file for web server use. Presented below is a selection of available NPM scripts:
 
-- `bundle:dev`: Bundles your code in development mode. Source maps will be generated.
-- `bundle:prod`: Bundles your code in production mode. The output will be optimized and minified.
-- `compile`: Compiles TypeScript code based on the provided tsconfig.json.
-- `compile-and-bundle`: A one-step command to compile TypeScript and then bundle it using Webpack.
-- `serve`: Runs a simple HTTP server to serve the `./public` directory at `http://localhost:8080`.
+- `bundle:dev`: Executes bundling in development mode, generating source maps for easier debugging.
+- `bundle:prod`: Optimizes and minifies output when bundling in a production environment.
+- `compile`: Transforms TypeScript code according to parameters set in the provided tsconfig.json file.
+- `compile-and-bundle`: A comprehensive command that compiles TypeScript and subsequently bundles it via Webpack.
+- `serve`: Initiates a rudimentary HTTP server, making the `./public` directory accessible at `http://localhost:8080`.
+
 
 #### How to Test
 
