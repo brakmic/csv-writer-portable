@@ -22,7 +22,7 @@ This library enables the conversion of JavaScript objects and arrays to CSV stri
 
 ### Webpack
 
-Creating browser-compatible JavaScript files is now a possible, thanks to the included Webpack configurations.
+Creating browser-compatible JavaScript files is now possible, thanks to the included Webpack configurations.
 
 Here's what you can do with the available NPM scripts:
 
