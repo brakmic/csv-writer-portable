@@ -129,15 +129,18 @@ describe('DefaultFieldStringifier', () => {
         const filterFunction = (str: string) => {
             // a simple regex to remove \r and \n chars
             return str.replace(/[\r\n]/g, '');
-        }
+        };
         const alwaysQuote = true;
         return () => {
-            const stringifier = createFieldStringifier(fieldDelimiter, alwaysQuote, filterFunction);
+            const stringifier = createFieldStringifier(
+                fieldDelimiter,
+                alwaysQuote,
+                filterFunction,
+            );
 
             it('applies custom function to manipulate field strings', () => {
                 strictEqual(stringifier.stringify('VALUE\rA\n'), '"VALUEA"');
             });
-
         };
     }
 });

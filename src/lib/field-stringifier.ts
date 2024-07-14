@@ -6,7 +6,7 @@ const VALID_FIELD_DELIMITERS = [DEFAULT_FIELD_DELIMITER, ';'];
 export abstract class FieldStringifier {
     constructor(
         public readonly fieldDelimiter: string,
-        public readonly filterFunction: (str: string) => string = (str) => str
+        public readonly filterFunction: (str: string) => string = (str) => str,
     ) {}
 
     abstract stringify(value?: Field): string;
@@ -54,7 +54,7 @@ class ForceQuoteFieldStringifier extends FieldStringifier {
 export function createFieldStringifier(
     fieldDelimiter: string = DEFAULT_FIELD_DELIMITER,
     alwaysQuote = false,
-    filterFunction: (str: string) => string = (str) => str
+    filterFunction: (str: string) => string = (str) => str,
 ) {
     _validateFieldDelimiter(fieldDelimiter);
     return alwaysQuote

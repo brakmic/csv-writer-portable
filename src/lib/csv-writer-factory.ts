@@ -40,7 +40,7 @@ export class CsvWriterFactory {
                 fieldDelimiter: params.fieldDelimiter,
                 recordDelimiter: params.recordDelimiter,
                 alwaysQuote: params.alwaysQuote,
-                filterFunction: params.filterFunction
+                filterFunction: params.filterFunction,
             });
         return new CsvWriter<T[]>(
             csvStringifier,
@@ -60,7 +60,7 @@ export class CsvWriterFactory {
                 recordDelimiter: params.recordDelimiter,
                 headerIdDelimiter: params.headerIdDelimiter,
                 alwaysQuote: params.alwaysQuote,
-                filterFunction: params.filterFunction
+                filterFunction: params.filterFunction,
             });
         return new CsvWriter<ObjectMap<T>>(
             csvStringifier,

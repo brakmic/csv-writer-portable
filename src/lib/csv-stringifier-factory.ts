@@ -27,7 +27,9 @@ export class CsvStringifierFactory {
         const fieldStringifier = createFieldStringifier(
             params.fieldDelimiter,
             params.alwaysQuote,
-            params.filterFunction ? params.filterFunction : (str: string) => str
+            params.filterFunction
+                ? params.filterFunction
+                : (str: string) => str,
         );
         return new ArrayCsvStringifier(
             fieldStringifier,
@@ -42,7 +44,9 @@ export class CsvStringifierFactory {
         const fieldStringifier = createFieldStringifier(
             params.fieldDelimiter,
             params.alwaysQuote,
-            params.filterFunction ? params.filterFunction : (str: string) => str
+            params.filterFunction
+                ? params.filterFunction
+                : (str: string) => str,
         );
         return new ObjectCsvStringifier(
             fieldStringifier,
