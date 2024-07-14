@@ -27,6 +27,8 @@ describe('DefaultFieldStringifier', () => {
         });
     });
 
+    describe('When custom filter function is applied', generateTestCases2(','));
+
     function generateTestCases(fieldDelimiter: string) {
         const delim = resolveDelimiterChar(fieldDelimiter);
         return () => {
@@ -120,6 +122,22 @@ describe('DefaultFieldStringifier', () => {
                     '"Name: OBJECT_NAME"""',
                 );
             });
+        };
+    }
+
+    function generateTestCases2(fieldDelimiter: string) {
+        const filterFunction = (str: string) => {
+            // a simple regex to remove \r and \n chars
+            return str.replace(/[\r\n]/g, '');
+        }
+        const alwaysQuote = true;
+        return () => {
+            const stringifier = createFieldStringifier(fieldDelimiter, alwaysQuote, filterFunction);
+
+            it('applies custom function to manipulate field strings', () => {
+                strictEqual(stringifier.stringify('VALUE\rA\n'), '"VALUEA"');
+            });
+
         };
     }
 });
