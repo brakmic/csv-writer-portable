@@ -207,12 +207,12 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | --- | --- |
 | Creates a CsvWriter instance | [Source Code](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer-factory.ts#L40) |
 
-| Parameter | Type | Description | Default |
-| --- | --- | --- | --- |
+| Parameter | Type | Description | Default | Allowed |
+| --- | --- | --- | --- | --- |
 | params | Object | Configuration options | - |
 | └─ path | String | File path | - |
 | └─ header | Array<{id, title}\|string> | Header specification | - |
-| └─ fieldDelimiter | String (Optional) | Field delimiter | `,` |
+| └─ fieldDelimiter | String (Optional) | Field delimiter | `,` | `;` `\|` `\t` |  
 | └─ recordDelimiter | String (Optional) | Record delimiter | `\n` |
 | └─ encoding | String (Optional) | File encoding | `utf8` |
 | └─ append | Boolean (Optional) | Append mode | `false` |
