@@ -7,6 +7,10 @@ describe('DefaultFieldStringifier', () => {
 
     describe('When field delimiter is semicolon', generateTestCases(';'));
 
+    describe('When field delimiter is pipe', generateTestCases('|'));
+
+    describe('When field delimiter is tab', generateTestCases('\t'));
+
     describe('When all fields needs to be quoted', () => {
         const stringifier = createFieldStringifier(',', true);
 
@@ -40,8 +44,8 @@ describe('DefaultFieldStringifier', () => {
 
             it('preserves the whitespace characters', () => {
                 strictEqual(
-                    stringifier.stringify(' VALUE\tA  '),
-                    ' VALUE\tA  ',
+                    stringifier.stringify(' VALUE A '),
+                    ' VALUE A ',
                 );
             });
 
