@@ -6,6 +6,7 @@ export const VALID_FIELD_DELIMITERS = [DEFAULT_FIELD_DELIMITER, ';', '|', '\t'];
 export abstract class FieldStringifier {
     constructor(
         public readonly fieldDelimiter: string,
+        public readonly quoteEmptyFields: boolean = false,
         public readonly filterFunction: (str: string) => string = (str) => str,
     ) {}
 
@@ -26,7 +27,10 @@ export abstract class FieldStringifier {
 
 class DefaultFieldStringifier extends FieldStringifier {
     stringify(value?: Field): string {
-        if (this.isEmpty(value)) return '';
+        if (this.isEmpty(value)) {
+            if (this.quoteEmptyFields) return '""';
+            return '';
+        }
         let str = String(value);
         str = this.filterChars(str);
         return this.needsQuote(str) ? this.quoteField(str) : str;
@@ -44,7 +48,10 @@ class DefaultFieldStringifier extends FieldStringifier {
 
 class ForceQuoteFieldStringifier extends FieldStringifier {
     stringify(value?: Field): string {
-        if (this.isEmpty(value)) return '';
+        if (this.isEmpty(value)) {
+            if (this.quoteEmptyFields) return '""';
+            return '';
+        }
         let str = String(value);
         str = this.filterChars(str);
         return this.quoteField(str);
@@ -54,12 +61,21 @@ class ForceQuoteFieldStringifier extends FieldStringifier {
 export function createFieldStringifier(
     fieldDelimiter: string = DEFAULT_FIELD_DELIMITER,
     alwaysQuote = false,
+    quoteEmptyFields = false,
     filterFunction: (str: string) => string = (str) => str,
 ) {
     _validateFieldDelimiter(fieldDelimiter);
     return alwaysQuote
-        ? new ForceQuoteFieldStringifier(fieldDelimiter, filterFunction)
-        : new DefaultFieldStringifier(fieldDelimiter, filterFunction);
+        ? new ForceQuoteFieldStringifier(
+              fieldDelimiter,
+              quoteEmptyFields,
+              filterFunction,
+          )
+        : new DefaultFieldStringifier(
+              fieldDelimiter,
+              quoteEmptyFields,
+              filterFunction,
+          );
 }
 
 function _validateFieldDelimiter(delimiter: string): void {

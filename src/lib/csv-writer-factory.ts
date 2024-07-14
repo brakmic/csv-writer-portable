@@ -11,6 +11,7 @@ export interface ArrayCsvWriterParams {
     alwaysQuote?: boolean;
     encoding?: string;
     append?: boolean;
+    quoteEmptyFields?: boolean;
     filterFunction?: (str: string) => string;
 }
 
@@ -23,6 +24,7 @@ export interface ObjectCsvWriterParams {
     alwaysQuote?: boolean;
     encoding?: string;
     append?: boolean;
+    quoteEmptyFields?: boolean;
     filterFunction?: (str: string) => string;
 }
 
@@ -40,6 +42,7 @@ export class CsvWriterFactory {
                 fieldDelimiter: params.fieldDelimiter,
                 recordDelimiter: params.recordDelimiter,
                 alwaysQuote: params.alwaysQuote,
+                quoteEmptyFields: params.quoteEmptyFields,
                 filterFunction: params.filterFunction,
             });
         return new CsvWriter<T[]>(
@@ -60,6 +63,7 @@ export class CsvWriterFactory {
                 recordDelimiter: params.recordDelimiter,
                 headerIdDelimiter: params.headerIdDelimiter,
                 alwaysQuote: params.alwaysQuote,
+                quoteEmptyFields: params.quoteEmptyFields,
                 filterFunction: params.filterFunction,
             });
         return new CsvWriter<ObjectMap<T>>(
