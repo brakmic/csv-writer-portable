@@ -43,10 +43,7 @@ describe('DefaultFieldStringifier', () => {
             });
 
             it('preserves the whitespace characters', () => {
-                strictEqual(
-                    stringifier.stringify(' VALUE A '),
-                    ' VALUE A ',
-                );
+                strictEqual(stringifier.stringify(' VALUE A '), ' VALUE A ');
             });
 
             it(`wraps a field value with double quotes if the field contains "${delim}"`, () => {
@@ -135,10 +132,12 @@ describe('DefaultFieldStringifier', () => {
             return str.replace(/[\r\n]/g, '');
         };
         const alwaysQuote = true;
+        const quoteEmptyFields = true;
         return () => {
             const stringifier = createFieldStringifier(
                 fieldDelimiter,
                 alwaysQuote,
+                quoteEmptyFields,
                 filterFunction,
             );
 
