@@ -8,6 +8,7 @@ export interface ArrayCsvStringifierParams {
     fieldDelimiter?: string;
     recordDelimiter?: string;
     alwaysQuote?: boolean;
+    quoteEmptyFields?: boolean;
     filterFunction?: (str: string) => string;
 }
 
@@ -17,6 +18,7 @@ export interface ObjectCsvStringifierParams {
     recordDelimiter?: string;
     headerIdDelimiter?: string;
     alwaysQuote?: boolean;
+    quoteEmptyFields?: boolean;
     filterFunction?: (str: string) => string;
 }
 
@@ -27,6 +29,7 @@ export class CsvStringifierFactory {
         const fieldStringifier = createFieldStringifier(
             params.fieldDelimiter,
             params.alwaysQuote,
+            params.quoteEmptyFields,
             params.filterFunction
                 ? params.filterFunction
                 : (str: string) => str,
@@ -44,6 +47,7 @@ export class CsvStringifierFactory {
         const fieldStringifier = createFieldStringifier(
             params.fieldDelimiter,
             params.alwaysQuote,
+            params.quoteEmptyFields,
             params.filterFunction
                 ? params.filterFunction
                 : (str: string) => str,
