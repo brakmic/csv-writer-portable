@@ -15,8 +15,8 @@ describe('Write object records into CSV', () => {
         ...records,
         { name: 'Jack', lang: null },
         { name: undefined, lang: 'German' },
-        { name: "Hank" }
-    ]
+        { name: 'Hank' },
+    ];
 
     describe('When only path and header ids are given', () => {
         const filePath = makeFilePath('minimum');
@@ -180,31 +180,43 @@ describe('Write object records into CSV', () => {
     });
 
     describe('When `quoteEmptyFields` flag is set', () => {
-        const filePath = makeFilePath('quote-empty-field')
+        const filePath = makeFilePath('quote-empty-field');
         const writer = createObjectCsvWriter({
             path: filePath,
-            header: [{id: 'name', title: 'NAME'}, {id: 'lang', title: 'LANGUAGE'}],
-            quoteEmptyFields: true
-        })
+            header: [
+                { id: 'name', title: 'NAME' },
+                { id: 'lang', title: 'LANGUAGE' },
+            ],
+            quoteEmptyFields: true,
+        });
 
         it('quotes all empty fields', async () => {
-            await writer.writeRecords(recordsWithEmptyFields)
-            assertFile(filePath, 'NAME,LANGUAGE\nBob,French\nMary,English\nJack,""\n"",German\nHank,""\n')
-        })
-    })
+            await writer.writeRecords(recordsWithEmptyFields);
+            assertFile(
+                filePath,
+                'NAME,LANGUAGE\nBob,French\nMary,English\nJack,""\n"",German\nHank,""\n',
+            );
+        });
+    });
 
     describe('When `quoteEmptyFields` and `alwaysQuote` flag is set', () => {
-        const filePath = makeFilePath('quote-empty-field')
+        const filePath = makeFilePath('quote-empty-field');
         const writer = createObjectCsvWriter({
             path: filePath,
-            header: [{id: 'name', title: 'NAME'}, {id: 'lang', title: 'LANGUAGE'}],
+            header: [
+                { id: 'name', title: 'NAME' },
+                { id: 'lang', title: 'LANGUAGE' },
+            ],
             quoteEmptyFields: true,
-            alwaysQuote: true
-        })
+            alwaysQuote: true,
+        });
 
         it('quotes all empty fields', async () => {
-            await writer.writeRecords(recordsWithEmptyFields)
-            assertFile(filePath, '"NAME","LANGUAGE"\n"Bob","French"\n"Mary","English"\n"Jack",""\n"","German"\n"Hank",""\n')
-        })
-    })
+            await writer.writeRecords(recordsWithEmptyFields);
+            assertFile(
+                filePath,
+                '"NAME","LANGUAGE"\n"Bob","French"\n"Mary","English"\n"Jack",""\n"","German"\n"Hank",""\n',
+            );
+        });
+    });
 });
