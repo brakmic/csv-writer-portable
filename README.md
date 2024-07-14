@@ -32,8 +32,6 @@ Here's what you can do with the available NPM scripts:
 - `compile-and-bundle`: Compile and bundle sources in one go.
 - `serve`: Starts a basic HTTP server to show files from the `./public` directory at `http://localhost:8080`.
 
-
-
 #### How to Test
 
 1. To bundle and serve the application, run the following commands in sequence:
@@ -88,6 +86,39 @@ Bob,"French, English"
 Mary,English
 ```
 
+#### Using Custom Filter Functions
+
+You can pass custom filter functions to manipulate field strings. Here’s an example that removes non-printable characters like `\r` and `\n`:
+
+```ts
+import { createObjectCsvWriter } from 'csv-writer-portable';
+
+const csvPath = 'test.csv';
+const csvWriter = createObjectCsvWriter({
+  path: csvPath,
+  header: [
+    { id: 'phone_number', title: 'phone_number' },
+    { id: 'name', title: 'name' }
+  ],
+  filterFunction: (str: string) => {
+    // a simple regex to remove \r and \n chars
+    return str.replace(/[\r\n]/g, '');
+  },
+  alwaysQuote: true
+});
+
+const data = [
+  { phone_number: 9978789799, name: "John \nDoe\r" },
+  { phone_number: 8898988989, name: "Bob Marlin" }
+];
+
+async function writeCsv() {
+  await csvWriter.writeRecords(data);
+}
+
+writeCsv().catch(err => console.error('Error writing CSV:', err));
+```
+
 #### Multiple Writes to the Same File
 
 To append more records, simply call `writeRecords` again after the promise from the previous call is fulfilled.
@@ -113,7 +144,7 @@ const csvWriter = createCsvWriter({
 });
 ```
 
-If each record is defined as an array, use `createArrayCsvWriter` to get an `csvWriter` instance.
+If each record is defined as an array, use `createArrayCsvWriter` to get a `csvWriter` instance.
 
 ```ts
 const createCsvWriter = require('csv-writer').createArrayCsvWriter;
@@ -141,7 +172,7 @@ Bob,"French, English"
 Mary,English
 ```
 
-If you just want to get a CSV string but don't want to write into a file, you can use createObjectCsvStringifier (or createArrayCsvStringifier) to get an csvStringifier.
+If you just want to get a CSV string but don't want to write into a file, you can use `createObjectCsvStringifier` (or `createArrayCsvStringifier`) to get a `csvStringifier`.
 
 ```ts
 const createCsvStringifier = require('csv-writer').createObjectCsvStringifier;
@@ -185,6 +216,8 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | └─ recordDelimiter | String (Optional) | Record delimiter | `\n` |
 | └─ encoding | String (Optional) | File encoding | `utf8` |
 | └─ append | Boolean (Optional) | Append mode | `false` |
+| └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (str) => str |
+| └─ alwaysQuote | Boolean (Optional) | Always quote field values | `false` |
 
 **Returns**: [CsvWriter](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L10) instance
 
@@ -218,6 +251,7 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | └─ recordDelimiter | String (Optional) | Record delimiter | `\n` |
 
 **Returns**: [ObjectCsvStringifier](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-stringifiers/object.ts#L6) instance
+
 ## Contribute
 
 If you'd like to contribute by either proposing new features or reporting bugs, please visit: [GitHub Issues](https://github.com/brakmic/csv-writer-portable/issues)
