@@ -7,3 +7,4 @@
 /test-tmp
 __*
 .DS_Store
+pnpm-lock.yaml
