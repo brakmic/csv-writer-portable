@@ -52,5 +52,8 @@ export default [...compat.extends(
         "prettier/prettier": ["error", {
             singleQuote: true,
         }],
-    },
+    }
+},
+{
+    ignores: ["dist/*"]
 }];
