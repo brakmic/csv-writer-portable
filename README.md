@@ -58,7 +58,7 @@ Here's what you can do with the available NPM scripts:
 The following code snippet demonstrates how to write records, defined as an array of objects, to a file.
 
 ```ts
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const createCsvWriter = require('csv-writer-portable').createObjectCsvWriter;
 const csvWriter = createCsvWriter({
     path: 'path/to/file.csv',
     header: [
@@ -147,7 +147,7 @@ const csvWriter = createCsvWriter({
 If each record is defined as an array, use `createArrayCsvWriter` to get a `csvWriter` instance.
 
 ```ts
-const createCsvWriter = require('csv-writer').createArrayCsvWriter;
+const createCsvWriter = require('csv-writer-portable').createArrayCsvWriter;
 const csvWriter = createCsvWriter({
     header: ['NAME', 'LANGUAGE'],
     path: 'path/to/file.csv'
@@ -175,7 +175,7 @@ Mary,English
 If you just want to get a CSV string but don't want to write into a file, you can use `createObjectCsvStringifier` (or `createArrayCsvStringifier`) to get a `csvStringifier`.
 
 ```ts
-const createCsvStringifier = require('csv-writer').createObjectCsvStringifier;
+const createCsvStringifier = require('csv-writer-portable').createObjectCsvStringifier;
 const csvStringifier = createCsvStringifier({
     header: [
         {id: 'name', title: 'NAME'},
@@ -212,28 +212,38 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | params | Object | Configuration options | - |
 | └─ path | String | File path | - |
 | └─ header | Array<{id, title}\|string> | Header specification | - |
-| └─ fieldDelimiter | String (Optional) | Field delimiter | `,` | `;` `\|` `\t` |  
+| └─ fieldDelimiter | String (Optional) | Field delimiter | `,` | `; \| \| \t` |  
 | └─ recordDelimiter | String (Optional) | Record delimiter | `\n` |
 | └─ encoding | String (Optional) | File encoding | `utf8` |
 | └─ append | Boolean (Optional) | Append mode | `false` |
-| └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (str) => str |
 | └─ alwaysQuote | Boolean (Optional) | Always quote field values | `false` |
+| └─ quoteEmptyFields | Boolean (Optional) | Double-quote ("") fields with empty values | `false` |
+| └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (str) => str |
 
 **Returns**: [CsvWriter](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L10) instance
 
 ---
 
-### CsvWriter.writeRecords(records)
+### createArrayCsvWriter(params)
 
 | Description | Link |
 | --- | --- |
-| Writes records to CSV | [Source Code](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L21) |
+| Creates an ArrayCsvWriter instance | [Source Code](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer-factory.ts#L56) |
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| records | Iterable | Collection of objects or arrays |
+| Parameter | Type | Description | Default | Allowed |
+| --- | --- | --- | --- | --- |
+| params | Object | Configuration options | - |
+| └─ path | String | File path | - |
+| └─ header | Array<string> | Header specification | - |
+| └─ fieldDelimiter | String (Optional) | Field delimiter | \`,\` | \`; \| \| \t\` |  
+| └─ recordDelimiter | String (Optional) | Record delimiter | \`\n\` |
+| └─ encoding | String (Optional) | File encoding | \`utf8\` |
+| └─ append | Boolean (Optional) | Append mode | \`false\` |
+| └─ alwaysQuote | Boolean (Optional) | Always quote field values | \`false\` |
+| └─ quoteEmptyFields | Boolean (Optional) | Double-quote ("") fields with empty values | \`false\` |
+| └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (str) => str |
 
-**Returns**: Promise<void>
+**Returns**: [CsvWriter](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L10) instance
 
 ---
 
@@ -249,8 +259,27 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | └─ header | Array<{id, title}\|string> | Header specification | - |
 | └─ fieldDelimiter | String (Optional) | Field delimiter | `,` |
 | └─ recordDelimiter | String (Optional) | Record delimiter | `\n` |
+| └─ headerIdDelimiter | String (Optional) | Header ID delimiter | `_` |
+| └─ alwaysQuote | Boolean (Optional) | Always quote field values | `false` |
+| └─ quoteEmptyFields | Boolean (Optional) | Double-quote ("") fields with empty values | `false` |
+| └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (str) => str |
 
 **Returns**: [ObjectCsvStringifier](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-stringifiers/object.ts#L6) instance
+
+---
+
+### CsvWriter.writeRecords(records)
+
+| Description | Link |
+| --- | --- |
+| Writes records to CSV | [Source Code](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L24) |
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| records | Iterable | Collection of objects or arrays |
+
+**Returns**: Promise<void>
+
 
 ## Contribute
 
