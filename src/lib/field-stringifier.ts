@@ -4,7 +4,10 @@ const DEFAULT_FIELD_DELIMITER = ',';
 const VALID_FIELD_DELIMITERS = [DEFAULT_FIELD_DELIMITER, ';'];
 
 export abstract class FieldStringifier {
-    constructor(public readonly fieldDelimiter: string) {}
+    constructor(
+        public readonly fieldDelimiter: string,
+        public readonly filterFunction: (str: string) => string = (str) => str
+    ) {}
 
     abstract stringify(value?: Field): string;
 
@@ -15,12 +18,17 @@ export abstract class FieldStringifier {
     protected quoteField(field: string): string {
         return `"${field.replace(/"/g, '""')}"`;
     }
+
+    protected filterChars(str: string): string {
+        return this.filterFunction(str);
+    }
 }
 
 class DefaultFieldStringifier extends FieldStringifier {
     stringify(value?: Field): string {
         if (this.isEmpty(value)) return '';
-        const str = String(value);
+        let str = String(value);
+        str = this.filterChars(str);
         return this.needsQuote(str) ? this.quoteField(str) : str;
     }
 
@@ -36,18 +44,22 @@ class DefaultFieldStringifier extends FieldStringifier {
 
 class ForceQuoteFieldStringifier extends FieldStringifier {
     stringify(value?: Field): string {
-        return this.isEmpty(value) ? '' : this.quoteField(String(value));
+        if (this.isEmpty(value)) return '';
+        let str = String(value);
+        str = this.filterChars(str);
+        return this.quoteField(str);
     }
 }
 
 export function createFieldStringifier(
     fieldDelimiter: string = DEFAULT_FIELD_DELIMITER,
     alwaysQuote = false,
+    filterFunction: (str: string) => string = (str) => str
 ) {
     _validateFieldDelimiter(fieldDelimiter);
     return alwaysQuote
-        ? new ForceQuoteFieldStringifier(fieldDelimiter)
-        : new DefaultFieldStringifier(fieldDelimiter);
+        ? new ForceQuoteFieldStringifier(fieldDelimiter, filterFunction)
+        : new DefaultFieldStringifier(fieldDelimiter, filterFunction);
 }
 
 function _validateFieldDelimiter(delimiter: string): void {
