@@ -237,10 +237,10 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | └─ header | Array<string> | Header specification | - |
 | └─ fieldDelimiter | String (Optional) | Field delimiter | \`,\` | `; \| \t` |  
 | └─ recordDelimiter | String (Optional) | Record delimiter | \`\n\` |
-| └─ encoding | String (Optional) | File encoding | \`utf8\` |
-| └─ append | Boolean (Optional) | Append mode | \`false\` |
-| └─ alwaysQuote | Boolean (Optional) | Always quote field values | \`false\` |
-| └─ quoteEmptyFields | Boolean (Optional) | Double-quote ("") fields with empty values | \`false\` |
+| └─ encoding | String (Optional) | File encoding | `utf8` |
+| └─ append | Boolean (Optional) | Append mode | `false` |
+| └─ alwaysQuote | Boolean (Optional) | Always quote field values | `false` |
+| └─ quoteEmptyFields | Boolean (Optional) | Double-quote ("") fields with empty values | `false` |
 | └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (str) => str |
 
 **Returns**: [CsvWriter](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L10) instance
