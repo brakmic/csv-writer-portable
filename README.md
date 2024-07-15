@@ -212,7 +212,7 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | params | Object | Configuration options | - |
 | └─ path | String | File path | - |
 | └─ header | Array<{id, title}\|string> | Header specification | - |
-| └─ fieldDelimiter | String (Optional) | Field delimiter | `,` | `; \| \| \t` |  
+| └─ fieldDelimiter | String (Optional) | Field delimiter | `,` | `; \| \t` |  
 | └─ recordDelimiter | String (Optional) | Record delimiter | `\n` |
 | └─ encoding | String (Optional) | File encoding | `utf8` |
 | └─ append | Boolean (Optional) | Append mode | `false` |
@@ -235,7 +235,7 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | params | Object | Configuration options | - |
 | └─ path | String | File path | - |
 | └─ header | Array<string> | Header specification | - |
-| └─ fieldDelimiter | String (Optional) | Field delimiter | \`,\` | \`; \| \| \t\` |  
+| └─ fieldDelimiter | String (Optional) | Field delimiter | \`,\` | `; \| \t` |  
 | └─ recordDelimiter | String (Optional) | Record delimiter | \`\n\` |
 | └─ encoding | String (Optional) | File encoding | \`utf8\` |
 | └─ append | Boolean (Optional) | Append mode | \`false\` |
@@ -253,11 +253,11 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | --- | --- |
 | Creates an ObjectCsvStringifier instance | [Source Code](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-stringifier-factory.ts#L28) |
 
-| Parameter | Type | Description | Default |
-| --- | --- | --- | --- |
+| Parameter | Type | Description | Default | Allowed |
+| --- | --- | --- | --- | --- |
 | params | Object | Configuration options | - |
 | └─ header | Array<{id, title}\|string> | Header specification | - |
-| └─ fieldDelimiter | String (Optional) | Field delimiter | `,` |
+| └─ fieldDelimiter | String (Optional) | Field delimiter | `,` | `; \| \t` |
 | └─ recordDelimiter | String (Optional) | Record delimiter | `\n` |
 | └─ headerIdDelimiter | String (Optional) | Header ID delimiter | `_` |
 | └─ alwaysQuote | Boolean (Optional) | Always quote field values | `false` |
