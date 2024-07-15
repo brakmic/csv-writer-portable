@@ -1,6 +1,6 @@
 {
   "name": "csv-writer-portable",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Convert objects/arrays into a CSV string or write them into a CSV file (portable version)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
