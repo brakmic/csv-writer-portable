@@ -85,8 +85,9 @@ Here's what you can do with the available NPM scripts:
 The following code snippet demonstrates how to write records, defined as an array of objects, to a file.
 
 ```ts
-const createCsvWriter = require('csv-writer-portable').createObjectCsvWriter;
-const csvWriter = createCsvWriter({
+import { createObjectCsvWriter } from 'csv-writer-portable';
+
+const csvWriter = createObjectCsvWriter({
     path: 'path/to/file.csv',
     header: [
         {id: 'name', title: 'NAME'},
@@ -174,8 +175,9 @@ const csvWriter = createCsvWriter({
 If each record is defined as an array, use `createArrayCsvWriter` to get a `csvWriter` instance.
 
 ```ts
-const createCsvWriter = require('csv-writer-portable').createArrayCsvWriter;
-const csvWriter = createCsvWriter({
+import { createArrayCsvWriter } from 'csv-writer-portable';
+
+const csvWriter = createArrayCsvWriter({
     header: ['NAME', 'LANGUAGE'],
     path: 'path/to/file.csv'
 });
@@ -202,8 +204,9 @@ Mary,English
 If you just want to get a CSV string but don't want to write into a file, you can use `createObjectCsvStringifier` (or `createArrayCsvStringifier`) to get a `csvStringifier`.
 
 ```ts
-const createCsvStringifier = require('csv-writer-portable').createObjectCsvStringifier;
-const csvStringifier = createCsvStringifier({
+import { createObjectCsvStringifier } from 'csv-writer-portable';
+
+const csvStringifier = createObjectCsvStringifier({
     header: [
         {id: 'name', title: 'NAME'},
         {id: 'lang', title: 'LANGUAGE'}
@@ -263,7 +266,7 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | └─ path | String | File path | - |
 | └─ header | Array<string> | Header specification | - |
 | └─ fieldDelimiter | String (Optional) | Field delimiter | \`,\` | `; \| \t` |  
-| └─ recordDelimiter | String (Optional) | Record delimiter | \`\n\` |
+| └─ recordDelimiter | String (Optional) | Record delimiter | `\n` |
 | └─ encoding | String (Optional) | File encoding | `utf8` |
 | └─ append | Boolean (Optional) | Append mode | `false` |
 | └─ alwaysQuote | Boolean (Optional) | Always quote field values | `false` |
