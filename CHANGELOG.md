@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.7.1] - 2024-07-15
+- Add new field delimiters: `\| \t` implemented by [plupBraves](https://github.com/plupBraves "plupBraves")
+- Add `quoteEmptyFields` parameter implemented by [blowfishlol](https://github.com/blowfishlol "blowfishlol")
+- Generate `index.d.ts` declaration file implemented by [stevenle](https://github.com/stevenle "stevenle")
+
 ## [1.7.0] - 2024-07-14
 - Add custom functions
 - Fixed integration tests
