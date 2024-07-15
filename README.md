@@ -2,6 +2,33 @@
 
 ![CI/CD Pipeline](https://github.com/brakmic/csv-writer-portable/actions/workflows/main.yml/badge.svg)
 
+### Index
+- [CSV Writer Portable](#csv-writer-portable)
+  - [Index](#index)
+  - [Introduction](#introduction)
+  - [Rationale](#rationale)
+  - [Features](#features)
+  - [Prerequisites](#prerequisites)
+  - [Webpack](#webpack)
+  - [How to Test](#how-to-test)
+  - [Quick Start](#quick-start)
+    - [Writing Records as Array of Objects to a File](#writing-records-as-array-of-objects-to-a-file)
+    - [Using Custom Filter Functions](#using-custom-filter-functions)
+    - [Multiple Writes to the Same File](#multiple-writes-to-the-same-file)
+    - [Writing Large Data Sets](#writing-large-data-sets)
+    - [Skipping Header Line](#skipping-header-line)
+  - [API Documentation](#api-documentation)
+    - [createObjectCsvWriter(params)](#createobjectcsvwriterparams)
+    - [createArrayCsvWriter(params)](#createarraycsvwriterparams)
+    - [createObjectCsvStringifier(params)](#createobjectcsvstringifierparams)
+    - [CsvWriter.writeRecords(records)](#csvwriterwriterecordsrecords)
+- [Contribute](#contribute)
+  - [Guidelines](#guidelines)
+- [Development Setup](#development-setup)
+  - [Requirements](#requirements)
+- [License](#license)
+
+
 ### Introduction
 
 This repository serves as an enhanced version of an existing project, [ryu1kn/csv-writer](https://github.com/ryu1kn/csv-writer).
@@ -32,7 +59,7 @@ Here's what you can do with the available NPM scripts:
 - `compile-and-bundle`: Compile and bundle sources in one go.
 - `serve`: Starts a basic HTTP server to show files from the `./public` directory at `http://localhost:8080`.
 
-#### How to Test
+### How to Test
 
 1. To bundle and serve the application, run the following commands in sequence:
 
@@ -201,7 +228,7 @@ console.log(csvStringifier.stringifyRecords(records));
 
 The following tables describe the methods exposed by the CSV Writer Portable library.
 
-### createObjectCsvWriter(params)
+#### createObjectCsvWriter(params)
 
 | Description | Link |
 | --- | --- |
@@ -224,7 +251,7 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 
 ---
 
-### createArrayCsvWriter(params)
+#### createArrayCsvWriter(params)
 
 | Description | Link |
 | --- | --- |
@@ -247,7 +274,7 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 
 ---
 
-### createObjectCsvStringifier(params)
+#### createObjectCsvStringifier(params)
 
 | Description | Link |
 | --- | --- |
@@ -268,7 +295,7 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 
 ---
 
-### CsvWriter.writeRecords(records)
+#### CsvWriter.writeRecords(records)
 
 | Description | Link |
 | --- | --- |
