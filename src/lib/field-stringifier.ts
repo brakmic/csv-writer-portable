@@ -7,7 +7,7 @@ export abstract class FieldStringifier {
     constructor(
         public readonly fieldDelimiter: string,
         public readonly quoteEmptyFields: boolean = false,
-        public readonly filterFunction: (str: string) => string = (str) => str,
+        public readonly filterFunction: (value: any) => any = (value) => value,
     ) {}
 
     abstract stringify(value?: Field): string;
@@ -20,19 +20,19 @@ export abstract class FieldStringifier {
         return `"${field.replace(/"/g, '""')}"`;
     }
 
-    protected filterChars(str: string): string {
-        return this.filterFunction(str);
+    protected filterValue(value: any): any {
+        return this.filterFunction(value);
     }
 }
 
 class DefaultFieldStringifier extends FieldStringifier {
     stringify(value?: Field): string {
-        if (this.isEmpty(value)) {
+        let filteredValue = this.filterValue(value);
+        if (this.isEmpty(filteredValue)) {
             if (this.quoteEmptyFields) return '""';
             return '';
         }
-        let str = String(value);
-        str = this.filterChars(str);
+        let str = String(filteredValue);
         return this.needsQuote(str) ? this.quoteField(str) : str;
     }
 
@@ -48,12 +48,12 @@ class DefaultFieldStringifier extends FieldStringifier {
 
 class ForceQuoteFieldStringifier extends FieldStringifier {
     stringify(value?: Field): string {
-        if (this.isEmpty(value)) {
+        let filteredValue = this.filterValue(value);
+        if (this.isEmpty(filteredValue)) {
             if (this.quoteEmptyFields) return '""';
             return '';
         }
-        let str = String(value);
-        str = this.filterChars(str);
+        let str = String(filteredValue);
         return this.quoteField(str);
     }
 }
@@ -62,7 +62,7 @@ export function createFieldStringifier(
     fieldDelimiter: string = DEFAULT_FIELD_DELIMITER,
     alwaysQuote = false,
     quoteEmptyFields = false,
-    filterFunction: (str: string) => string = (str) => str,
+    filterFunction: (value: any) => any = (value) => value,
 ) {
     _validateFieldDelimiter(fieldDelimiter);
     return alwaysQuote
@@ -85,3 +85,4 @@ function _validateFieldDelimiter(delimiter: string): void {
         );
     }
 }
+

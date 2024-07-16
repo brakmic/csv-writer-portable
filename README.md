@@ -128,7 +128,8 @@ const csvWriter = createObjectCsvWriter({
     { id: 'phone_number', title: 'phone_number' },
     { id: 'name', title: 'name' }
   ],
-  filterFunction: (str: string) => {
+  filterFunction: (value: any) => {
+    const str = String(value);
     // a simple regex to remove \r and \n chars
     return str.replace(/[\r\n]/g, '');
   },
@@ -248,7 +249,7 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | └─ append | Boolean (Optional) | Append mode | `false` |
 | └─ alwaysQuote | Boolean (Optional) | Always quote field values | `false` |
 | └─ quoteEmptyFields | Boolean (Optional) | Double-quote ("") fields with empty values | `false` |
-| └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (str) => str |
+| └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (value: any) => value |
 
 **Returns**: [CsvWriter](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L10) instance
 
@@ -271,7 +272,7 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | └─ append | Boolean (Optional) | Append mode | `false` |
 | └─ alwaysQuote | Boolean (Optional) | Always quote field values | `false` |
 | └─ quoteEmptyFields | Boolean (Optional) | Double-quote ("") fields with empty values | `false` |
-| └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (str) => str |
+| └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (value: any) => value |
 
 **Returns**: [CsvWriter](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L10) instance
 
@@ -292,7 +293,7 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | └─ headerIdDelimiter | String (Optional) | Header ID delimiter | `_` |
 | └─ alwaysQuote | Boolean (Optional) | Always quote field values | `false` |
 | └─ quoteEmptyFields | Boolean (Optional) | Double-quote ("") fields with empty values | `false` |
-| └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (str) => str |
+| └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (value: any) => value |
 
 **Returns**: [ObjectCsvStringifier](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-stringifiers/object.ts#L6) instance
 

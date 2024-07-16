@@ -12,7 +12,7 @@ export interface ArrayCsvWriterParams {
     encoding?: string;
     append?: boolean;
     quoteEmptyFields?: boolean;
-    filterFunction?: (str: string) => string;
+    filterFunction?: (value: any) => any;
 }
 
 export interface ObjectCsvWriterParams {
@@ -25,7 +25,7 @@ export interface ObjectCsvWriterParams {
     encoding?: string;
     append?: boolean;
     quoteEmptyFields?: boolean;
-    filterFunction?: (str: string) => string;
+    filterFunction?: (value: any) => any;
 }
 
 export class CsvWriterFactory {
