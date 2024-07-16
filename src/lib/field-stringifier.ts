@@ -7,7 +7,8 @@ export abstract class FieldStringifier {
     constructor(
         public readonly fieldDelimiter: string,
         public readonly quoteEmptyFields: boolean = false,
-        public readonly filterFunction: (value: any) => any = (value) => value,
+        public readonly filterFunction: (value: Field) => Field = (value) =>
+            value,
     ) {}
 
     abstract stringify(value?: Field): string;
@@ -20,19 +21,19 @@ export abstract class FieldStringifier {
         return `"${field.replace(/"/g, '""')}"`;
     }
 
-    protected filterValue(value: any): any {
+    protected filterValue(value: Field): Field {
         return this.filterFunction(value);
     }
 }
 
 class DefaultFieldStringifier extends FieldStringifier {
     stringify(value?: Field): string {
-        let filteredValue = this.filterValue(value);
+        const filteredValue = this.filterValue(value);
         if (this.isEmpty(filteredValue)) {
             if (this.quoteEmptyFields) return '""';
             return '';
         }
-        let str = String(filteredValue);
+        const str = String(filteredValue);
         return this.needsQuote(str) ? this.quoteField(str) : str;
     }
 
@@ -48,12 +49,12 @@ class DefaultFieldStringifier extends FieldStringifier {
 
 class ForceQuoteFieldStringifier extends FieldStringifier {
     stringify(value?: Field): string {
-        let filteredValue = this.filterValue(value);
+        const filteredValue = this.filterValue(value);
         if (this.isEmpty(filteredValue)) {
             if (this.quoteEmptyFields) return '""';
             return '';
         }
-        let str = String(filteredValue);
+        const str = String(filteredValue);
         return this.quoteField(str);
     }
 }
@@ -62,7 +63,7 @@ export function createFieldStringifier(
     fieldDelimiter: string = DEFAULT_FIELD_DELIMITER,
     alwaysQuote = false,
     quoteEmptyFields = false,
-    filterFunction: (value: any) => any = (value) => value,
+    filterFunction: (value: Field) => Field = (value) => value,
 ) {
     _validateFieldDelimiter(fieldDelimiter);
     return alwaysQuote
@@ -85,4 +86,3 @@ function _validateFieldDelimiter(delimiter: string): void {
         );
     }
 }
-

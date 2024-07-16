@@ -1,6 +1,6 @@
 import { CsvWriter } from './csv-writer';
 import { CsvStringifierFactory } from './csv-stringifier-factory';
-import { ObjectStringifierHeader } from './record';
+import { Field, ObjectStringifierHeader } from './record';
 import { ObjectMap } from './lang/object';
 
 export interface ArrayCsvWriterParams {
@@ -12,7 +12,7 @@ export interface ArrayCsvWriterParams {
     encoding?: string;
     append?: boolean;
     quoteEmptyFields?: boolean;
-    filterFunction?: (value: any) => any;
+    filterFunction?: (value: Field) => Field;
 }
 
 export interface ObjectCsvWriterParams {
@@ -25,7 +25,7 @@ export interface ObjectCsvWriterParams {
     encoding?: string;
     append?: boolean;
     quoteEmptyFields?: boolean;
-    filterFunction?: (value: any) => any;
+    filterFunction?: (value: Field) => Field;
 }
 
 export class CsvWriterFactory {
