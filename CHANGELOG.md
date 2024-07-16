@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.7.2] - 2024-07-16
+- Make `filterFunction` parameter type-safe
+- Update stringifier tests
+- Ensure that `filterFunction` is applied directly to the values before any conversion to strings
+
 ## [1.7.1] - 2024-07-15
 - Add new field delimiters: `\| \t` implemented by [plupBraves](https://github.com/plupBraves "plupBraves")
 - Add `quoteEmptyFields` parameter implemented by [blowfishlol](https://github.com/blowfishlol "blowfishlol")
