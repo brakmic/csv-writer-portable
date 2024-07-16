@@ -1,3 +1,4 @@
+```markdown
 ## CSV Writer Portable
 
 ![CI/CD Pipeline](https://github.com/brakmic/csv-writer-portable/actions/workflows/main.yml/badge.svg)
@@ -250,6 +251,7 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 | └─ alwaysQuote | Boolean (Optional) | Always quote field values | `false` |
 | └─ quoteEmptyFields | Boolean (Optional) | Double-quote ("") fields with empty values | `false` |
 | └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (value: any) => value |
+| └─ useBom | Boolean (Optional) | Add BOM for UTF-8 encoding | `false` |
 
 **Returns**: [CsvWriter](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L10) instance
 
@@ -259,20 +261,23 @@ The following tables describe the methods exposed by the CSV Writer Portable lib
 
 | Description | Link |
 | --- | --- |
-| Creates an ArrayCsvWriter instance | [Source Code](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer-factory.ts#L56) |
+| Creates an ArrayCsvWriter instance | [Source Code](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer-factory.ts#L
+
+56) |
 
 | Parameter | Type | Description | Default | Allowed |
 | --- | --- | --- | --- | --- |
 | params | Object | Configuration options | - |
 | └─ path | String | File path | - |
 | └─ header | Array<string> | Header specification | - |
-| └─ fieldDelimiter | String (Optional) | Field delimiter | \`,\` | `; \| \t` |  
+| └─ fieldDelimiter | String (Optional) | Field delimiter | `,` | `; \| \t` |  
 | └─ recordDelimiter | String (Optional) | Record delimiter | `\n` |
 | └─ encoding | String (Optional) | File encoding | `utf8` |
 | └─ append | Boolean (Optional) | Append mode | `false` |
 | └─ alwaysQuote | Boolean (Optional) | Always quote field values | `false` |
 | └─ quoteEmptyFields | Boolean (Optional) | Double-quote ("") fields with empty values | `false` |
 | └─ filterFunction | Function (Optional) | Custom function to manipulate field strings | (value: any) => value |
+| └─ useBom | Boolean (Optional) | Add BOM for UTF-8 encoding | `false` |
 
 **Returns**: [CsvWriter](https://github.com/brakmic/csv-writer-portable/blob/main/src/lib/csv-writer.ts#L10) instance
 
@@ -332,3 +337,4 @@ If you'd like to contribute by either proposing new features or reporting bugs, 
 ## License
 
 Licensed under the [MIT License](./LICENSE).
+```
