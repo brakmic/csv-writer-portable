@@ -13,6 +13,7 @@ export interface ArrayCsvWriterParams {
     append?: boolean;
     quoteEmptyFields?: boolean;
     filterFunction?: (value: Field) => Field;
+    useBom?: boolean;
 }
 
 export interface ObjectCsvWriterParams {
@@ -26,6 +27,7 @@ export interface ObjectCsvWriterParams {
     append?: boolean;
     quoteEmptyFields?: boolean;
     filterFunction?: (value: Field) => Field;
+    useBom?: boolean;
 }
 
 export class CsvWriterFactory {
@@ -50,6 +52,7 @@ export class CsvWriterFactory {
             params.path,
             params.encoding,
             params.append,
+            params.useBom ?? false,
         );
     }
 
@@ -71,6 +74,7 @@ export class CsvWriterFactory {
             params.path,
             params.encoding,
             params.append,
+            params.useBom ?? false,
         );
     }
 }
