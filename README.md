@@ -1,4 +1,3 @@
-```markdown
 ## CSV Writer Portable
 
 ![CI/CD Pipeline](https://github.com/brakmic/csv-writer-portable/actions/workflows/main.yml/badge.svg)
