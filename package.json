@@ -47,8 +47,8 @@
   "files": [
     "dist",
     "!dist/test",
-    "src",
-    "!src/test"
+    "README.md",
+    "LICENSE"
   ],
   "devDependencies": {
     "@eslint/eslintrc": "^3.1.0",
