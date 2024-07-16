@@ -15,10 +15,11 @@ export class CsvWriter<T> {
         path: string,
         encoding?: string,
         private append = DEFAULT_INITIAL_APPEND_FLAG,
+        useBom = false,
         fileWriter?: IFileWriter,
     ) {
         this.fileWriter =
-            fileWriter || new FileWriter(path, this.append, encoding);
+            fileWriter || new FileWriter(path, this.append, encoding, useBom);
     }
 
     async writeRecords(records: T[]): Promise<void> {
