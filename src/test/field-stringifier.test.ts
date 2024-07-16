@@ -1,4 +1,5 @@
 import { createFieldStringifier } from '../lib/field-stringifier';
+import { Field } from '../lib/record';
 import { resolveDelimiterChar } from './helper/delimiter';
 import { strictEqual } from 'assert';
 
@@ -127,7 +128,7 @@ describe('DefaultFieldStringifier', () => {
     }
 
     function generateTestCases2(fieldDelimiter: string) {
-        const filterFunction = (value: any) => {
+        const filterFunction = (value: Field) => {
             const str = String(value);
             // a simple regex to remove \r and \n chars
             return str.replace(/[\r\n]/g, '');
