@@ -19,6 +19,7 @@ describe('CsvWriter Browser Compatibility', () => {
             '',
             '',
             false,
+            false,
             fileWriterMock,
         );
     });

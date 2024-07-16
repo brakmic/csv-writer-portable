@@ -19,6 +19,7 @@ describe('CsvWriter', () => {
             'some_path.csv',
             'utf8',
             false,
+            false,
             fileWriterMock,
         );
     });
