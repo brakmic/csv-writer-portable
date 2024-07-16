@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [1.7.5] - 2024-07-17
-# - Added `useBom` parameter to `CsvWriterFactory`
+## - Added `useBom` parameter to `CsvWriterFactory`
 
 ## [1.7.4] - 2024-07-17
 - Added `useBom` parameter to `FileWriter` and `CsvWriter` to support UTF-8 BOM for special characters in CSV exports
