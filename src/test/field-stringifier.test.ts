@@ -127,7 +127,8 @@ describe('DefaultFieldStringifier', () => {
     }
 
     function generateTestCases2(fieldDelimiter: string) {
-        const filterFunction = (str: string) => {
+        const filterFunction = (value: any) => {
+            const str = String(value);
             // a simple regex to remove \r and \n chars
             return str.replace(/[\r\n]/g, '');
         };
